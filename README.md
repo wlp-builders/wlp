@@ -1,2 +1,1 @@
-# wlp
-WLP v2 will be released on Christmas 2025.
+# WLP v2 - an invite to take a look at the codebase
