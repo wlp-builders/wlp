@@ -702,14 +702,15 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 				$user_id = $jwt_decoded['user_id'];
 			}
 		} catch(Exception $err) {
-			var_dump($err); // for debugging
+			//var_dump($err); // for debugging
 			return false;
 		}
+
 		if(!$user_id) return false;
 
-		//var_dump($user_id);
 		//die('user_id');
 		$user = get_user_by( 'id', $user_id );
+		//var_dump(['user_id'=>$user_id,'user'=>$user]);
 		do_action( 'auth_cookie_valid', [], $user );
 		return $user->ID;
 	}
@@ -935,7 +936,7 @@ if ( ! function_exists( 'wp_set_auth_cookie' ) ) :
 			'domain' => COOKIE_DOMAIN,
 			'secure' => $secure,
 			'httponly' => true,
-			'samesite' => 'Strict',
+			'samesite' => 'None', // in WLP it's None instead of Strict to allow DomApps to redirect
 		);
 
 		// WLP JWT, simplied
@@ -1017,7 +1018,7 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 			return; // The cookie is good, so we're done.
 		} else {
 			// debug
-			//die('died with no valid $user_id (bad)');
+			//die('died with no valid $user_id (bad): '.$user_id);
 
 		}
 
@@ -1078,7 +1079,7 @@ if ( ! function_exists( 'check_admin_referer' ) ) :
 		 */
 		do_action( 'check_admin_referer', $action, $result );
 
-		if ( ! $result && ! ( -1 === $action && str_starts_with( $referer, $adminurl ) ) ) {
+		if ( ! $result && ! ( -1 === $action ) && str_starts_with( $referer, $adminurl ) ) {
 			wp_nonce_ays( $action );
 			die();
 		}
@@ -1143,6 +1144,23 @@ if ( ! function_exists( 'check_ajax_referer' ) ) :
 	}
 endif;
 
+// for WLP core devs: comment return false for easy login redirect debugging
+function custom_redirect($url) {
+		return false; // comment this for easy redirect debugging
+		// Only trigger exit debug if 'login' is in the URL
+		if (strpos($url, 'login')) {
+			echo "Redirecting to $url".PHP_EOL;
+
+			var_dump(["type"=>_wlp_get_jwt_type()]);
+			var_dump(["jwt"=> wlp_get_jwt()]);
+			var_dump(["cookies"=> $_COOKIE]);
+			//var_dump(wp_get_current_user());
+
+			print_r(debug_backtrace());
+			exit;
+		}
+}
+
 if ( ! function_exists( 'wp_redirect' ) ) :
 	/**
 	 * Redirects to another page.
@@ -1171,19 +1189,6 @@ if ( ! function_exists( 'wp_redirect' ) ) :
 	 * @param string $x_redirect_by Optional. The application doing the redirect. Default 'WordPress'.
 	 * @return bool False if the redirect was canceled, true otherwise.
 	 */
-	function custom_redirect($url) {
-        return false; // for WLP core devs: comment this for easy redirect debugging
-		// Only trigger exit debug if 'login' is in the URL
-		if (strpos($url, 'login')) {
-			echo "Redirecting to $url";
-
-			var_dump(_wlp_get_jwt_type());
-			var_dump(wp_get_current_user());
-
-			print_r(debug_backtrace());
-			exit;
-		}
-	}
 
 	
 	function wp_redirect( $location, $status = 302, $x_redirect_by = 'WordPress' ) {
