@@ -1,0 +1,189 @@
+/*
+Theme Name: Whitelabel 24
+Author: Neil
+Description: A minimalist WLP theme focused on simplicity and whitespace.
+Version: 1.1
+*/
+
+/* Reset and global styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #000;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+    padding-top:1.5rem;
+}
+
+/* Container for main content */
+.container {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+    
+.container--home {
+   max-width:444px;
+   }
+
+/* Header (business card style) */
+header {
+}
+.title {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.subtitle {
+    font-size: 1.2em;
+    color: #666;
+    font-weight: normal;
+}
+
+/* Connect with Me section */
+.connect {
+    margin: 15px 0 40px;
+    font-size: 0.9em;
+    color: #666;
+}
+.connect a {
+    color: #000;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 600;
+}
+
+/* Latest posts section */
+.latest-posts {
+}
+.latest-posts h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.post {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #000;
+}
+.post-date {
+    font-size: 0.85em;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+/* Pagination styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+.pagination a {
+    color: #000;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-weight: 600;
+}
+.pagination a.active {
+    background-color: #000;
+    color: #fff;
+}
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.user-info img {
+	    width: 50px;
+	        height: 50px;
+		    border-radius: 50%;
+		        display: inline-block;
+			    object-fit: cover;
+			        margin-top: 3rem;
+			}
+
+			pre {
+				    overflow-x: scroll;
+				        padding: 33px;
+					    background: rgb(47 22 47) !important;
+					        color: white;
+						    text-shadow: 0 0 15px #ffb8ff54;
+						        color: #dd6dff;
+						}
+
+
+
+    
+/* Headings Styling */
+h1, h2, h3, h4 {
+    font-family: 'Helvetica Neue', sans-serif;
+    color: black;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* Specific Heading Styles */
+h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+h2, h3 {
+    padding-bottom: 6px;
+}
+
+/* Post Title */
+.post-title {
+    color: #222;
+    font-size: 1.75em;
+    margin-bottom: 10px;
+}
+
+/* List Styling */
+ul {
+    padding-left: 1em;
+    margin: 20px 0;
+}
+
+ul li {
+    padding: 8px 0;
+    font-size: 1.1em;
+    color: #444;
+}
+
+/* Dark mode by default */
+body {
+	background:black;
+	color:white;
+}
+h1,h2,h3,h4,h5,h6,a, .post-title,.connect a {
+
+color:white;
+}
+
+#wpadminbar {
+	background:black;
+
+}
+img {
+	max-width:100%!important;
+	object-fit:cover;
+}
+
+ul li {
+  color: #fff;
+}

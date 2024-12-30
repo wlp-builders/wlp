@@ -23,12 +23,12 @@ FOLDER_PATH=$(realpath "$1")
 FOLDER_NAME=$(basename "$FOLDER_PATH")
 
 # Replace '.' with '__' in the folder name
-SANITIZED_NAME=$(echo "$FOLDER_NAME" | sed 's/\./__/g')
+SANITIZED_NAME=$(echo "$FOLDER_NAME" | sed 's/\./__/g' | sed 's/\-/_/g')
 
 # Generate database name, username, and password
 DATABASE_NAME="${SANITIZED_NAME}_db"
 USERNAME="${SANITIZED_NAME}_user"
-PASSWORD=$(openssl rand -base64 18 | tr -d '=')
+PASSWORD=$(openssl rand -base64 32 | tr '+/' '-_' | tr -d '=')
 
 # Open MySQL and execute commands
 sudo mysql <<EOF

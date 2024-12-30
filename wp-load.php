@@ -1,22 +1,4 @@
 <?php
-// in WLP we first check CSRF token for maximum protection
-require_once(__DIR__.'/wlp-core/wlp-functions/wlp_csrf_protection.php');
-
-if (
-	isset($_SERVER['HTTP_DID']) || (
-	isset($_SERVER['REQUEST_URI']) && 
-(strpos($_SERVER['REQUEST_URI'], 'admin-ajax.php') !== false 
-|| strpos($_SERVER['REQUEST_URI'],'async-upload.php') !== false 
-|| strpos($_SERVER['REQUEST_URI'],'wp-login.php') !== false 
-|| strpos($_SERVER['REQUEST_URI'],'wlp-install') !== false 
-|| strpos($_SERVER['REQUEST_URI'],'?customize_changeset_uuid') !== false 
-))) {
-    // assume nonce is being used for protection already
-}
-else {
-    wlp_csrf_protection_checker();
-}
-
 /**
  * Bootstrap file for setting the ABSPATH constant
  * and loading the wp-config.php file. The wp-config.php

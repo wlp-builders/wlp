@@ -67,12 +67,6 @@ CREATE TABLE IF NOT EXISTS `wlp_comments` (
   KEY `comment_author_email` (`comment_author_email`(10))
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
---
--- Dumping data for table `wlp_comments`
---
-
-INSERT INTO `wlp_comments` (`comment_ID`, `comment_post_ID`, `comment_author`, `comment_author_email`, `comment_author_url`, `comment_author_IP`, `comment_date`, `comment_date_gmt`, `comment_content`, `comment_karma`, `comment_approved`, `comment_agent`, `comment_type`, `comment_parent`, `user_id`) VALUES
-(1, 1, 'A ClassicPress Commenter', 'social@classicpress.net', 'https://www.classicpress.net/', '', '2024-12-12 15:00:59', '2024-12-12 15:00:59', 'Hi, this is a comment.\nTo get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.', 0, '1', '', 'comment', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -280,9 +274,6 @@ INSERT INTO `wlp_options` (`option_id`, `option_name`, `option_value`, `autoload
 (126, 'recovery_keys', 'a:0:{}', 'yes'),
 (127, '_transient_twentyseventeen_categories', '1', 'yes'),
 (128, 'https_detection_errors', 'a:1:{s:20:\"https_request_failed\";a:1:{i:0;s:21:\"HTTPS request failed.\";}}', 'yes'),
-(129, '_site_transient_update_core', 'O:8:\"stdClass\":3:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:7:\"upgrade\";s:8:\"download\";s:70:\"https://github.com/ClassicPress/ClassicPress-release/archive/2.3.0.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:70:\"https://github.com/ClassicPress/ClassicPress-release/archive/2.3.0.zip\";s:10:\"no_content\";s:0:\"\";s:11:\"new_bundled\";s:0:\"\";s:7:\"partial\";s:0:\"\";s:8:\"rollback\";s:0:\"\";}s:7:\"current\";s:5:\"2.3.0\";s:7:\"version\";s:5:\"2.3.0\";s:11:\"php_version\";s:3:\"7.4\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"4.7\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1734015661;s:15:\"version_checked\";s:5:\"2.2.0\";}', 'no'),
-(131, '_site_transient_update_plugins', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1734015663;s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:0:{}s:7:\"checked\";a:1:{s:23:\"cp-pepper/cp-pepper.php\";s:3:\"1.0\";}}', 'no'),
-(134, '_site_transient_update_themes', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1734015663;s:7:\"checked\";a:3:{s:28:\"classicpress-twentyseventeen\";s:5:\"1.0.0\";s:22:\"the-classicpress-theme\";s:5:\"1.0.0\";s:15:\"twentyseventeen\";s:16:\"99.1-upstream1.7\";}s:8:\"response\";a:0:{}s:9:\"no_update\";a:1:{s:15:\"twentyseventeen\";a:6:{s:5:\"theme\";s:15:\"twentyseventeen\";s:11:\"new_version\";s:3:\"3.8\";s:3:\"url\";s:45:\"https://wordpress.org/themes/twentyseventeen/\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/theme/twentyseventeen.3.8.zip\";s:8:\"requires\";s:3:\"4.7\";s:12:\"requires_php\";s:5:\"5.2.4\";}}s:12:\"translations\";a:0:{}}', 'no'),
 (135, 'cp_db_version', '1446', 'yes'),
 (136, 'db_upgraded', '', 'yes');
 
@@ -352,8 +343,8 @@ CREATE TABLE IF NOT EXISTS `wlp_posts` (
 --
 
 INSERT INTO `wlp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
-(1, 1, '2024-12-12 15:00:59', '2024-12-12 15:00:59', 'Welcome to ClassicPress. This is your first post. Edit or delete it, then start writing!', 'Hello world!', '', 'publish', 'open', 'open', '', 'hello-world', '', '', '2024-12-12 15:00:59', '2024-12-12 15:00:59', '', 0, 'http://wlp1.local/?p=1', 0, 'post', '', 1),
-(2, 1, '2024-12-12 15:00:59', '2024-12-12 15:00:59', 'This is an example page. It\'s different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors. It might say something like this:Hi there! I\'m a bike messenger by day, aspiring actor by night, and this is my website. I live in Los Angeles, have a great dog named Jack, and I like pi&#241;a coladas. (And gettin\' caught in the rain.)...or something like this:The XYZ Doohickey Company was founded in 1971, and has been providing quality doohickeys to the public ever since. Located in Gotham City, XYZ employs over 2,000 people and does all kinds of awesome things for the Gotham community.As a new ClassicPress user, you should go to <a href=\"http://wlp1.local/wp-admin/\">your dashboard</a> to delete this page and create new pages for your content. Have fun!', 'Sample Page', '', 'publish', 'closed', 'open', '', 'sample-page', '', '', '2024-12-12 15:00:59', '2024-12-12 15:00:59', '', 0, 'http://wlp1.local/?page_id=2', 0, 'page', '', 0),
+(1, 1, '2024-12-12 15:00:59', '2024-12-12 15:00:59', 'Welcome to WLP. This is your first post. Edit or delete it, then start writing!', 'Hello world!', '', 'publish', 'open', 'open', '', 'hello-world', '', '', '2024-12-12 15:00:59', '2024-12-12 15:00:59', '', 0, 'http://wlp1.local/?p=1', 0, 'post', '', 1),
+(2, 1, '2024-12-12 15:00:59', '2024-12-12 15:00:59', 'This is an example page. It\'s different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors. It might say something like this:Hi there! I\'m a bike messenger by day, aspiring actor by night, and this is my website. I live in Los Angeles, have a great dog named Jack, and I like pi&#241;a coladas. (And gettin\' caught in the rain.)...or something like this:The XYZ Doohickey Company was founded in 1971, and has been providing quality doohickeys to the public ever since. Located in Gotham City, XYZ employs over 2,000 people and does all kinds of awesome things for the Gotham community.As a new WLP user, you should go to <a href=\"http://wlp1.local/wp-admin/\">your dashboard</a> to delete this page and create new pages for your content. Have fun!', 'Sample Page', '', 'publish', 'closed', 'open', '', 'sample-page', '', '', '2024-12-12 15:00:59', '2024-12-12 15:00:59', '', 0, 'http://wlp1.local/?page_id=2', 0, 'page', '', 0),
 (3, 1, '2024-12-12 15:00:59', '2024-12-12 15:00:59', '<h2>Who we are</h2><p><strong class=\"privacy-policy-tutorial\">Suggested text: </strong>Our website address is: http://wlp1.local.</p><h2>Comments</h2><p><strong class=\"privacy-policy-tutorial\">Suggested text: </strong>When visitors leave comments on the site we collect the data shown in the comments form, and also the visitor&#8217;s IP address and browser user agent string to help spam detection.</p><p>An anonymized string created from your email address (also called a hash) may be provided to the Gravatar service to see if you are using it. The Gravatar service privacy policy is available here: https://automattic.com/privacy/. After approval of your comment, your profile picture is visible to the public in the context of your comment.</p><h2>Media</h2><p><strong class=\"privacy-policy-tutorial\">Suggested text: </strong>If you upload images to the website, you should avoid uploading images with embedded location data (EXIF GPS) included. Visitors to the website can download and extract any location data from images on the website.</p><h2>Cookies</h2><p><strong class=\"privacy-policy-tutorial\">Suggested text: </strong>If you leave a comment on our site you may opt-in to saving your name, email address and website in cookies. These are for your convenience so that you do not have to fill in your details again when you leave another comment. These cookies will last for one year.</p><p>If you visit our login page, we will set a temporary cookie to determine if your browser accepts cookies. This cookie contains no personal data and is discarded when you close your browser.</p><p>When you log in, we will also set up several cookies to save your login information and your screen display choices. Login cookies last for two days, and screen options cookies last for a year. If you select &quot;Remember Me&quot;, your login will persist for two weeks. If you log out of your account, the login cookies will be removed.</p><p>If you edit or publish an article, an additional cookie will be saved in your browser. This cookie includes no personal data and simply indicates the post ID of the article you just edited. It expires after 1 day.</p><h2>Embedded content from other websites</h2><p><strong class=\"privacy-policy-tutorial\">Suggested text: </strong>Articles on this site may include embedded content (e.g. videos, images, articles, etc.). Embedded content from other websites behaves in the exact same way as if the visitor has visited the other website.</p><p>These websites may collect data about you, use cookies, embed additional third-party tracking, and monitor your interaction with that embedded content, including tracking your interaction with the embedded content if you have an account and are logged in to that website.</p><h2>Who we share your data with</h2><p><strong class=\"privacy-policy-tutorial\">Suggested text: </strong>If you request a password reset, your IP address will be included in the reset email.</p><h2>How long we retain your data</h2><p><strong class=\"privacy-policy-tutorial\">Suggested text: </strong>If you leave a comment, the comment and its metadata are retained indefinitely. This is so we can recognize and approve any follow-up comments automatically instead of holding them in a moderation queue.</p><p>For users that register on our website (if any), we also store the personal information they provide in their user profile. All users can see, edit, or delete their personal information at any time (except they cannot change their username). Website administrators can also see and edit that information.</p><h2>What rights you have over your data</h2><p><strong class=\"privacy-policy-tutorial\">Suggested text: </strong>If you have an account on this site, or have left comments, you can request to receive an exported file of the personal data we hold about you, including any data you have provided to us. You can also request that we erase any personal data we hold about you. This does not include any data we are obliged to keep for administrative, legal, or security purposes.</p><h2>Where your data is sent</h2><p><strong class=\"privacy-policy-tutorial\">Suggested text: </strong>Visitor comments may be checked through an automated spam detection service.</p>', 'Privacy Policy', '', 'draft', 'closed', 'open', '', 'privacy-policy', '', '', '2024-12-12 15:00:59', '2024-12-12 15:00:59', '', 0, 'http://wlp1.local/?page_id=3', 0, 'page', '', 0);
 
 -- --------------------------------------------------------
@@ -507,6 +498,40 @@ CREATE TABLE IF NOT EXISTS `wlp_users` (
 
 INSERT INTO `wlp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
 (1, 'admin', '$2y$12$hKYyZn5WRv0b6s4fXBcr/uJlQxxk9.EMe0iZJz/p8c.SVXxa9keha', 'admin', 'admin@wlp.local', 'http://wlp1.local', '2024-12-12 15:00:59', '', 0, 'admin');
+
+CREATE TABLE IF NOT EXISTS wlp_plugins (
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Primary key for the table (auto-incremented)
+    unique_id CHAR(16) NOT NULL,         -- 8-byte ID (16 hex characters)
+    type ENUM('plugin', 'theme') NOT NULL,  -- Type: plugin or theme
+    author_domain VARCHAR(255) NOT NULL,     -- Author or repository domain (e.g., "example.com")
+    item_name VARCHAR(255) NOT NULL,         -- Plugin or theme name (e.g., "SEO Optimizer")
+    repo_url VARCHAR(255) NOT NULL,          -- Repository URL
+    version VARCHAR(50) NOT NULL,            -- Version number
+    status ENUM('inactive', 'active') DEFAULT 'inactive',  -- Status of the plugin/theme
+    installed_at DATETIME DEFAULT CURRENT_TIMESTAMP,  -- Install date (default to current timestamp)
+    
+    UNIQUE (unique_id),  -- Ensure the unique_id is unique across the table
+    UNIQUE (author_domain, item_name),  -- Ensure the combination of author_domain and item_name is unique across the table
+    
+    -- Index on 'type' to optimize queries filtering by type (plugin or theme)
+    INDEX idx_type (type),
+    
+    -- Composite index on 'author_domain' and 'item_name' to optimize queries filtering by author and name
+    INDEX idx_author_domain_item_name (author_domain, item_name)
+);
+
+
+
+
+--
+-- By default have minimal view post/pages (so hide ID, author, except title)
+--
+
+INSERT INTO `wlp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALUES
+(18, 1, 'manageedit-postcolumnshidden', 'a:6:{i:0;s:2:\"id\";i:1;s:6:\"author\";i:2;s:10:\"categories\";i:3;s:4:\"tags\";i:4;s:8:\"comments\";i:5;s:4:\"date\";}'),
+(20, 1, 'manageedit-pagecolumnshidden', 'a:4:{i:0;s:2:\"id\";i:1;s:6:\"author\";i:2;s:8:\"comments\";i:3;s:4:\"date\";}');
+--
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

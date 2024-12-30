@@ -1,4 +1,18 @@
-<!DOCTYPE html>
+<?php
+require_once __DIR__.'/php-verifyInstallKey.php';
+
+// generate placeholder suggestive names
+// Get the server name
+$serverName = $_SERVER['SERVER_NAME'] ?? 'domain.tld';
+
+// Replace dots in the server name with underscores to create valid identifiers
+$processedName = str_replace('.', '__', $serverName);
+
+// Define variables based on the processed server name
+$placeholder_dbName = $processedName . '_db';
+$placeholder_dbUser = $processedName . '_user';
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -43,10 +57,10 @@ a,li { color:white}
 
 <form method="post">
 <h5>Database Name</h5>
-    <input type="text" placeholder="Db name.." name="db_name" />
+    <input type="text" value="<?php echo $placeholder_dbName;?>" placeholder="Db name.." name="db_name" />
 
     <h5>Database User</h5>
-    <input type="text" placeholder="Db user.." name="db_user" />
+    <input type="text" value="<?php echo $placeholder_dbUser;?>" placeholder="Db user.." name="db_user" />
 
 <h5>Database Password</h5>
     <input type="text" placeholder="Db password.." name="db_pass" />
@@ -58,10 +72,9 @@ a,li { color:white}
 <?php
 //////
 
-if(!isset($_POST['submit'])) {
+if(!isset($_POST['submit']) && !isset($_GET['install_key'])) {
     //var_dump('submit not isset');
     exit;
-
 }
 
 // Check if wp-config is already installed
@@ -70,10 +83,26 @@ if (file_exists(__DIR__ . '/wlp-config.php')) {
     exit;
 }
 
-// Database connection variables (you may want to customize these)
-$db_name = $_POST['db_name']; // The name of your database
-$db_user = $_POST['db_user']; // Database username
-$db_pass = $_POST['db_pass']; // Database password
+
+if(!isset($_GET['install-key'])) {
+	$valid = verifyInstallKey($_GET['install_key']);
+	if(!$valid) {
+		die('install-key not valid for install via $_GET.');
+	}
+
+	$db_name = $_GET['db_name']; // The name of your database
+	$db_user = $_GET['db_user']; // Database username
+	$db_pass = $_GET['db_pass']; // Database password
+
+} else {
+	// assume post
+	// Database connection variables (you may want to customize these)
+	$db_name = $_POST['db_name']; // The name of your database
+	$db_user = $_POST['db_user']; // Database username
+	$db_pass = $_POST['db_pass']; // Database password
+}
+
+
 $db_host = 'localhost'; // Database host, usually 'localhost'
 $domain = $_SERVER['SERVER_NAME'];
 $secure = false; // https
@@ -250,7 +279,7 @@ $cookie_options = array(
     'domain' => $domain,
     'secure' => $secure,
     'httponly' => true,
-    'samesite' => 'Strict',
+    'samesite' => 'None',
 );
 
 // WLP JWT, simplied
