@@ -23,23 +23,7 @@ $placeholder_dbUser = $processedName . '_user';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Check</title>
-    <style>
-        #message {
-            font-size: 18px;
-            color: pink;
-        }
-        .dots::after {
-            content: '.';
-            animation: dot-blink 1s steps(1, end) infinite;
-        }
-        @keyframes dot-blink {
-            0% { content: '.'; }
-            33% { content: '..'; }
-            66% { content: '...'; }
-            100% { content: '.'; }
-        }
-    </style>
+    <title>Installer WLP</title>
 </head>
 <body>
 
@@ -56,10 +40,9 @@ a,li { color:white}
 
 <h2>WLP - Easy 3 Step Install</h2>
 <li>1. installer.php opened! (completed)</li>
-<li>2. Create Your Database: <br>Run <b>sudo bash install-1-as-root.sh</b> or <a href="install-with-panel.php">setup your database with panel and form</a>.</li>
-<li>3. Create Site Admin: <a href="install-2-config.php">setup your site admin</a>.</li>
+<li>2. Create Your Database: <br>Run <b>sudo bash install-1-as-root.sh</b></li>
+<li>3. Connect Your Database:</li>
  
-<li id="message" class="dots">3. Waiting for database</li>
 
 <form method="post">
 <h5>Database Name</h5>
