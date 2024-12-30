@@ -43,5 +43,7 @@ if ( file_exists( ABSPATH . 'wlp-config.php' ) ) {
 	require_once ABSPATH . 'wlp-config.php';
 
 } else {
-	die('Needs wlp-config.php file for JWT');
+	// Needs wlp-config.php file 
+	header("Location: ./wlp-install"); // redirect to install
+	exit();
 }

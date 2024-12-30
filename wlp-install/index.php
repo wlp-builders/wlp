@@ -1,4 +1,10 @@
 <?php
+// Check if wp-config is already installed
+if (file_exists(__DIR__ . '/../wlp-config.php')) {
+    die('wlp-config is already created.');
+    exit;
+}
+
 require_once __DIR__.'/php-verifyInstallKey.php';
 
 // generate placeholder suggestive names
@@ -77,14 +83,9 @@ if(!isset($_POST['submit']) && !isset($_GET['install_key'])) {
     exit;
 }
 
-// Check if wp-config is already installed
-if (file_exists(__DIR__ . '/wlp-config.php')) {
-    echo 'wlp-config is already created.';
-    exit;
-}
 
 
-if(!isset($_GET['install-key'])) {
+if(isset($_GET['install_key'])) {
 	$valid = verifyInstallKey($_GET['install_key']);
 	if(!$valid) {
 		die('install-key not valid for install via $_GET.');
@@ -105,7 +106,7 @@ if(!isset($_GET['install-key'])) {
 
 $db_host = 'localhost'; // Database host, usually 'localhost'
 $domain = $_SERVER['SERVER_NAME'];
-$secure = false; // https
+$secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
 if($secure) {
     $url = 'https://'.$domain;
 } else {
