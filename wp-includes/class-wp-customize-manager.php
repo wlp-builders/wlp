@@ -5110,7 +5110,7 @@ final class WP_Customize_Manager {
 			'title_tagline',
 			array(
 				'title'    => __( 'Site Identity' ),
-				'priority' => 20,
+				'priority' => 2000,
 			)
 		);
 
@@ -5681,41 +5681,9 @@ final class WP_Customize_Manager {
 		/* Custom CSS */
 		$section_description  = '<p>';
 		$section_description .= __( 'Add your own CSS code here to customize the appearance and layout of your site.' );
-		$section_description .= sprintf(
-			' <a href="%1$s" class="external-link" target="_blank">%2$s<span class="screen-reader-text"> %3$s</span></a>',
-			esc_url( __( 'https://wordpress.org/documentation/article/css/' ) ),
-			__( 'Learn more about CSS' ),
-			/* translators: Hidden accessibility text. */
-			__( '(opens in a new tab)' )
-		);
 		$section_description .= '</p>';
 
-		$section_description .= '<p id="editor-keyboard-trap-help-1">' . __( 'When using a keyboard to navigate:' ) . '</p>';
-		$section_description .= '<ul>';
-		$section_description .= '<li id="editor-keyboard-trap-help-2">' . __( 'In the editing area, the Tab key enters a tab character.' ) . '</li>';
-		$section_description .= '<li id="editor-keyboard-trap-help-3">' . __( 'To move away from this area, press the Esc key followed by the Tab key.' ) . '</li>';
-		$section_description .= '<li id="editor-keyboard-trap-help-4">' . __( 'Screen reader users: when in forms mode, you may need to press the Esc key twice.' ) . '</li>';
-		$section_description .= '</ul>';
 
-		if ( 'false' !== wp_get_current_user()->syntax_highlighting ) {
-			$section_description .= '<p>';
-			$section_description .= sprintf(
-				/* translators: 1: Link to user profile, 2: Additional link attributes, 3: Accessibility text. */
-				__( 'The edit field automatically highlights code syntax. You can disable this in your <a href="%1$s" %2$s>user profile%3$s</a> to work in plain text mode.' ),
-				esc_url( get_edit_profile_url() ),
-				'class="external-link" target="_blank"',
-				sprintf(
-					'<span class="screen-reader-text"> %s</span>',
-					/* translators: Hidden accessibility text. */
-					__( '(opens in a new tab)' )
-				)
-			);
-			$section_description .= '</p>';
-		}
-
-		$section_description .= '<p class="section-description-buttons">';
-		$section_description .= '<button type="button" class="button-link section-description-close">' . __( 'Close' ) . '</button>';
-		$section_description .= '</p>';
 
 		$this->add_section(
 			'custom_css',
