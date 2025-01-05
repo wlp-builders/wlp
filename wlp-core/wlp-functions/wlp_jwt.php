@@ -53,6 +53,8 @@ function wlp_jwt_sign($payload, $secretKey, $expirationTime=72000) { // 20h expi
 
 function wlp_jwt_verify($jwt, $secretKey) {
   
+    if(!$jwt) return false; 
+
     // just in case trim the payload
     $jwt = trim($jwt);
   
