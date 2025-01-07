@@ -7,13 +7,7 @@ This is only the core for forking (like Linux).
 ---
 
 ## What is WhiteLabelpress?
-WhiteLabelpress intents to decentralize plugin upgrades and more protection against any trademark claims while still **supporting major WordPress / WLP plugins**.
+WhiteLabelpress intents to create the best possible plugin ecosystem as well as providing you more freedom and protection against any trademark claims while still being **mostly WordPress compatible**.
 
-<a href="#"><img src="./teaser.png"></a>
-
-#### Roadmap:
-- Join now with <a href="https://github.com/neil-zip/pluginstxt">plugins.txt, a proposal to decentralize your plugins.</a>
-- Decentralized plugin repo: Easily setup your own independent plugins and themes directory for hosting companies.
-- PLUGIN: Easily switch between plugins and themes directories (replacing hardcoded)
-
+Site: <a href="https://whitelabelpress.org">https://whitelabelpress.org</a>
 
