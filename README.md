@@ -1,5 +1,8 @@
 ### Note this is only the core (without the core plugins you need)
-FULL "fork" at: <a href="https://github.com/wlp-builders/whitelabelpress-wlp">wlp-builders/whitelabelpress-wlp</a>
+This is only the core for forking (like Linux). 
+
+- The FULL "WhiteLabelPress V2 fork" is at <a href="https://github.com/wlp-builders/whitelabelpress-wlp">wlp-builders/whitelabelpress-wlp</a>
+- If you want to start your own fork, you can, very easily. Also see <a href="https://github.com/wlp-builders/whitelabelpress-wlp">wlp-builders/whitelabelpress-wlp</a> as example. You basically just create your own core plugins folder.
 
 ---
 
