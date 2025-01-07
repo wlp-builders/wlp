@@ -1,8 +1,7 @@
-### Star to be notified when we launch!
-We're currently forking WLP and building the Web3 layer for it to download and manage plugins the decentralized way. ✨
-We launch at Halloween! 🎃
+### Note this is only the core (without the core plugins you need)
+FULL "fork" at: <a href="https://github.com/wlp-builders/whitelabelpress-wlp">wlp-builders/whitelabelpress-wlp</a>
 
-Join us at <a href="https://discord.gg/e4NkSj28">Discord</a>
+---
 
 ## What is WhiteLabelpress?
 WhiteLabelpress intents to decentralize plugin upgrades and more protection against any trademark claims while still **supporting major WordPress / WLP plugins**.
