@@ -46,65 +46,6 @@ var_dump(wp_get_current_user());
 
 nocache_headers();
 
-if ( get_option( 'db_upgraded' ) ) {
-
-	flush_rewrite_rules();
-	update_option( 'db_upgraded', false );
-
-	/**
-	 * Fires on the next page load after a successful DB upgrade.
-	 *
-	 * @since 2.8.0
-	 */
-	do_action( 'after_db_upgrade' );
-
-} elseif ( ! wp_doing_ajax() && empty( $_POST )
-	&& ( (int) get_option( 'db_version' ) !== $wp_db_version || (int) get_option( 'cp_db_version', '1438' ) !== $cp_db_version )
-) {
-
-	if ( ! is_multisite() ) {
-		wp_redirect( admin_url( 'upgrade.php?_wp_http_referer=' . urlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
-		exit;
-	}
-
-	/**
-	 * Filters whether to attempt to perform the multisite DB upgrade routine.
-	 *
-	 * In single site, the user would be redirected to wp-admin/upgrade.php.
-	 * In multisite, the DB upgrade routine is automatically fired, but only
-	 * when this filter returns true.
-	 *
-	 * If the network is 50 sites or less, it will run every time. Otherwise,
-	 * it will throttle itself to reduce load.
-	 *
-	 * @since MU (3.0.0)
-	 *
-	 * @param bool $do_mu_upgrade Whether to perform the Multisite upgrade routine. Default true.
-	 */
-	if ( apply_filters( 'do_mu_upgrade', true ) ) {
-		$c = get_blog_count();
-
-		/*
-		 * If there are 50 or fewer sites, run every time. Otherwise, throttle to reduce load:
-		 * attempt to do no more than threshold value, with some +/- allowed.
-		 */
-		if ( $c <= 50 || ( $c > 50 && mt_rand( 0, (int) ( $c / 50 ) ) === 1 ) ) {
-			require_once ABSPATH . WPINC . '/http.php';
-			$response = wp_remote_get(
-				admin_url( 'upgrade.php?step=1' ),
-				array(
-					'timeout'     => 120,
-					'httpversion' => '1.1',
-				)
-			);
-			/** This action is documented in wp-admin/network/upgrade.php */
-			do_action( 'after_mu_upgrade', $response );
-			unset( $response );
-		}
-		unset( $c );
-	}
-}
-
 require_once ABSPATH . 'wp-admin/includes/admin.php';
 
 auth_redirect();
@@ -139,6 +80,14 @@ wp_enqueue_script( 'common' );
  * @global string $taxnow       The taxonomy of the current screen.
  */
 global $pagenow, $wp_importers, $hook_suffix, $plugin_page, $typenow, $taxnow;
+
+	//*
+	// uncomment for debugging core
+	if(function_exists('log_message')) {
+		log_message('[core_dev_debug::admin.php] '.json_encode(["pagenow"=>$pagenow, "plugin_page"=>$plugin_page]));
+	}
+	//*/
+
 
 $page_hook = null;
 
@@ -185,7 +134,14 @@ if ( current_user_can( 'manage_options' ) ) {
  */
 do_action( 'admin_init' );
 
-if ( isset( $plugin_page ) ) {
+//*
+	// uncomment for debugging core
+	if(function_exists('log_message')) {
+		log_message('[admin.php get_plugin_page_hook]'.json_encode(["get_plugin_page_hook"=>$get_plugin_page_hook]));
+	}
+	//*/
+
+if ( true || isset( $get_plugin_page_hook ) ) {
 	if ( ! empty( $typenow ) ) {
 		$the_parent = $pagenow . '?post_type=' . $typenow;
 	} else {
@@ -193,6 +149,12 @@ if ( isset( $plugin_page ) ) {
 	}
 
 	$page_hook = get_plugin_page_hook( $plugin_page, $the_parent );
+	//*
+	// uncomment for debugging core
+	if(function_exists('log_message')) {
+		log_message('[admin.php page_hook]'.json_encode(["plugin_page"=>$plugin_page, "the_parent"=>$the_parent,"page_hook"=>$page_hook]));
+	}
+	//*/
 	if ( ! $page_hook ) {
 		$page_hook = get_plugin_page_hook( $plugin_page, $plugin_page );
 

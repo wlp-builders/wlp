@@ -395,7 +395,7 @@ function network_step2( $errors = false ) {
 	$rewrite_base      = ! empty( $wp_siteurl_subdir ) ? ltrim( trailingslashit( $wp_siteurl_subdir ), '/' ) : '';
 
 	$location_of_wp_config = $abspath_fix;
-	if ( ! file_exists( ABSPATH . 'wp-config.php' ) && file_exists( dirname( ABSPATH ) . '/wp-config.php' ) ) {
+	if ( ! file_exists( ABSPATH . 'wlp-config.php' ) && file_exists( dirname( ABSPATH ) . '/wlp-config.php' ) ) {
 		$location_of_wp_config = dirname( $abspath_fix );
 	}
 	$location_of_wp_config = trailingslashit( $location_of_wp_config );
@@ -439,25 +439,25 @@ function network_step2( $errors = false ) {
 		if ( file_exists( $home_path . '.htaccess' ) ) {
 			echo '<strong>' . __( 'Caution:' ) . '</strong> ';
 			printf(
-				/* translators: 1: wp-config.php, 2: .htaccess */
+				/* translators: 1: wlp-config.php, 2: .htaccess */
 				__( 'You should back up your existing %1$s and %2$s files.' ),
-				'<code>wp-config.php</code>',
+				'<code>wlp-config.php</code>',
 				'<code>.htaccess</code>'
 			);
 		} elseif ( file_exists( $home_path . 'web.config' ) ) {
 			echo '<strong>' . __( 'Caution:' ) . '</strong> ';
 			printf(
-				/* translators: 1: wp-config.php, 2: web.config */
+				/* translators: 1: wlp-config.php, 2: web.config */
 				__( 'You should back up your existing %1$s and %2$s files.' ),
-				'<code>wp-config.php</code>',
+				'<code>wlp-config.php</code>',
 				'<code>web.config</code>'
 			);
 		} else {
 			echo '<strong>' . __( 'Caution:' ) . '</strong> ';
 			printf(
-				/* translators: %s: wp-config.php */
+				/* translators: %s: wlp-config.php */
 				__( 'You should back up your existing %s file.' ),
-				'<code>wp-config.php</code>'
+				'<code>wlp-config.php</code>'
 			);
 		}
 		?>
@@ -469,14 +469,14 @@ function network_step2( $errors = false ) {
 		<li><p id="network-wpconfig-rules-description">
 		<?php
 		printf(
-			/* translators: 1: wp-config.php, 2: Location of wp-config file, 3: Translated version of "That's all, stop editing! Happy publishing." */
+			/* translators: 1: wlp-config.php, 2: Location of wlp-config file, 3: Translated version of "That's all, stop editing! Happy publishing." */
 			__( 'Add the following to your %1$s file in %2$s <strong>above</strong> the line reading %3$s:' ),
-			'<code>wp-config.php</code>',
+			'<code>wlp-config.php</code>',
 			'<code>' . $location_of_wp_config . '</code>',
 			/*
-			 * translators: This string should only be translated if wp-config-sample.php is localized.
+			 * translators: This string should only be translated if wlp-config-sample.php is localized.
 			 * You can check the localized release package or
-			 * https://i18n.svn.wordpress.org/<locale code>/branches/<wp version>/dist/wp-config-sample.php
+			 * https://i18n.svn.wordpress.org/<locale code>/branches/<wp version>/dist/wlp-config-sample.php
 			 */
 			'<code>/* ' . __( 'That&#8217;s all, stop editing! Happy publishing.' ) . ' */</code>'
 		);
@@ -485,9 +485,9 @@ function network_step2( $errors = false ) {
 		<p class="configuration-rules-label"><label for="network-wpconfig-rules">
 			<?php
 			printf(
-				/* translators: %s: File name (wp-config.php, .htaccess or web.config). */
+				/* translators: %s: File name (wlp-config.php, .htaccess or web.config). */
 				__( 'Network configuration rules for %s' ),
-				'<code>wp-config.php</code>'
+				'<code>wlp-config.php</code>'
 			);
 			?>
 		</label></p>
@@ -535,15 +535,15 @@ define( 'BLOG_ID_CURRENT_SITE', 1 );
 			<?php
 			if ( 1 === $num_keys_salts ) {
 				printf(
-					/* translators: %s: wp-config.php */
+					/* translators: %s: wlp-config.php */
 					__( 'This unique authentication key is also missing from your %s file.' ),
-					'<code>wp-config.php</code>'
+					'<code>wlp-config.php</code>'
 				);
 			} else {
 				printf(
-					/* translators: %s: wp-config.php */
+					/* translators: %s: wlp-config.php */
 					__( 'These unique authentication keys are also missing from your %s file.' ),
-					'<code>wp-config.php</code>'
+					'<code>wlp-config.php</code>'
 				);
 			}
 			?>
@@ -624,7 +624,7 @@ define( 'BLOG_ID_CURRENT_SITE', 1 );
 			<p class="configuration-rules-label"><label for="network-webconfig-rules">
 				<?php
 				printf(
-					/* translators: %s: File name (wp-config.php, .htaccess or web.config). */
+					/* translators: %s: File name (wlp-config.php, .htaccess or web.config). */
 					__( 'Network configuration rules for %s' ),
 					'<code>web.config</code>'
 				);
@@ -686,7 +686,7 @@ EOF;
 			<p class="configuration-rules-label"><label for="network-htaccess-rules">
 				<?php
 				printf(
-					/* translators: %s: File name (wp-config.php, .htaccess or web.config). */
+					/* translators: %s: File name (wlp-config.php, .htaccess or web.config). */
 					__( 'Network configuration rules for %s' ),
 					'<code>.htaccess</code>'
 				);

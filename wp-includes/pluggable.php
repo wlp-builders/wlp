@@ -688,16 +688,19 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 		try { 
 			$token = wlp_get_jwt();
 			$tokenMethod = _wlp_get_jwt_type();
-			//var_dump("before jwt token");
-			//var_dump($token);
-			//var_dump($tokenMethod);
-
 			$jwt_decoded = wlp_jwt_verify($token,WLP_JWT_SECRET);
-			//var_dump("before jwt decoded");
-			//var_dump($jwt_decoded);
-			//var_dump("after jwt decoded");
-			//var_dump('$jwt_decoded');
-			//var_dump($jwt_decoded);
+			
+			/*
+			var_dump('wp_verify_auth_cookie');
+			var_dump($token);
+			var_dump($tokenMethod);
+			var_dump("before jwt decoded");
+			var_dump($jwt_decoded);
+			var_dump("after jwt decoded");
+			var_dump('$jwt_decoded');
+			var_dump($jwt_decoded);
+			die();
+			//*/
 			if($jwt_decoded) {
 				$user_id = $jwt_decoded['user_id'];
 			}
@@ -708,9 +711,17 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 
 		if(!$user_id) return false;
 
-		//die('user_id');
-		$user = get_user_by( 'id', $user_id );
-		//var_dump(['user_id'=>$user_id,'user'=>$user]);
+
+		// we need to use the DB to get a full WP User object
+		// even though the JWT already would be sufficient for ID
+		$user = get_user_by('id', $user_id);
+		/*
+		// core debug if needed
+		var_dump(get_user_by('id',1));
+		var_dump($user_id);
+		var_dump($user);
+		die();
+		//*/
 		do_action( 'auth_cookie_valid', [], $user );
 		return $user->ID;
 	}
@@ -1017,9 +1028,8 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 			do_action( 'auth_redirect', $user_id );
 			return; // The cookie is good, so we're done.
 		} else {
-			// debug
+			// uncomment for core debug
 			//die('died with no valid $user_id (bad): '.$user_id);
-
 		}
 
 		custom_redirect('wp-login from auth_redirect');

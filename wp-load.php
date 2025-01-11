@@ -42,6 +42,11 @@ if ( file_exists( ABSPATH . 'wlp-config.php' ) ) {
 	/** The config file resides in ABSPATH */
 	require_once ABSPATH . 'wlp-config.php';
 
+
+// ** Sets up WordPress vars and included files ** //
+require_once(ABSPATH . 'wp-settings.php');
+
+
 } else {
 	// Needs wlp-config.php file 
 	header("Location: ./wlp-install"); // redirect to install

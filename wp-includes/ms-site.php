@@ -748,9 +748,8 @@ function wp_initialize_site( $site_id, array $args = array() ) {
 	populate_site_meta( $site->id, $args['meta'] );
 
 	// Remove all permissions that may exist for the site.
-	$table_prefix = $wpdb->get_blog_prefix();
-	delete_metadata( 'user', 0, $table_prefix . 'user_level', null, true );   // Delete all.
-	delete_metadata( 'user', 0, $table_prefix . 'capabilities', null, true ); // Delete all.
+	delete_metadata( 'user', 0, 'wlp_' . 'user_level', null, true );   // Delete all.
+	delete_metadata( 'user', 0, 'wlp_' . 'capabilities', null, true ); // Delete all.
 
 	// Install default site content.
 	wp_install_defaults( $args['user_id'] );

@@ -6,7 +6,9 @@
         while (have_posts()) : the_post();
 
             // Display post content
+            echo '<div class="the-content">';
             the_content();
+            echo '</div>';
 
             // Author info section
             echo '<div class="user-info">';

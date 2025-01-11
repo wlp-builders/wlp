@@ -10,6 +10,14 @@ define('WLP_DEV_MODE',1);
 function wlp_instant_test(callable $callback) {
     require_once __DIR__.'../../wp-load.php';
 
+    $token = wlp_instant_test_get_token();
+
+    // Set token for request
+    $_SERVER['HTTP_WLP_AUTHORIZATION'] = 'Bearer '.$token;
+    $_SERVER['HTTP_HOST'] = 'localhost';
+    $_SERVER['PHP_SELF'] = '/';
+
+
     // Execute the callback in the WLP environment.
     $callback();
 
@@ -20,49 +28,57 @@ function wlp_instant_test(callable $callback) {
     require_once __DIR__.'../../index.php';
 }
 
+function wlp_instant_test_get_token(){
+  /// in the admin-header.php
+  require_once(__DIR__.'../../wlp-core/wlp-functions/wlp_jwt.php' );
+  require_once(__DIR__.'../../wlp-core/wlp-functions/wlp_get_jwt.php' );
+  require_once(__DIR__.'../../wlp-config.php' );
+
+  // create login cookie here and redirect to wp_admin
+  $expiration = 72000; // 10 hours by default
+  $token = wlp_jwt_sign(['user_id' => 1], WLP_JWT_SECRET,$expiration);
+  return $token;
+}
+
 // tokenOutputFile is used for storing the admin token somewhere, and re-using it, otherwise the CSRF protection will block when submitting a form ($_POST)
-function wlp_instant_test_admin($page='',$callback=null,$tokenOutputFile=null) {
+function wlp_instant_test_admin($callback=null,$page='dashboard2') {
   if(!empty($page)) {
     $_GET['page'] = $page;
   }
+
+  $token = wlp_instant_test_get_token();
+
+  // Set token for request
+  $_SERVER['HTTP_WLP_AUTHORIZATION'] = 'Bearer '.$token;
+  $_SERVER['HTTP_HOST'] = 'localhost:8080';
+  $_SERVER['PHP_SELF'] = '/wp-admin/admin.php';
 
   /// in the admin-header.php
   require_once(__DIR__.'../../wlp-core/wlp-functions/wlp_jwt.php' );
   require_once(__DIR__.'../../wlp-core/wlp-functions/wlp_get_jwt.php' );
   require_once(__DIR__.'../../wlp-config.php' );
 
-  if(empty($tokenOutputFile)) {
-    throw new Exception('Please set a tokenOutputFile, so the admin token can be stored in a secure private place.');
-  }
 
-  // Generate long token for development if not exist
-  /// to regenerate simply remove file in $tokenOutputFile
-  if(!file_exists($tokenOutputFile)) {
-    $generated_token = wlp_jwt_sign(['user_id' => 1], WLP_JWT_SECRET, 6048000); // 6048000=10 week expiration for development
-    file_put_contents($tokenOutputFile,$generated_token);
-  }
-
-  $token = file_get_contents($tokenOutputFile);
-
-  // Set token for request
-  $_SERVER['HTTP_WLP_AUTHORIZATION'] = 'Bearer '.$token;
-  $_SERVER['HTTP_HOST'] = 'localhost:8080';
 
   
-  //var_dump(wlp_get_jwt());
-  //var_dump(_wlp_get_jwt_type());
-  // double check token method
-  //$tokenMethod = _wlp_get_jwt_type();
-  //var_dump($tokenMethod);
-  //var_dump(wp_get_current_user());
-  //die();
 
 
   require_once(__DIR__.'../../wp-load.php' ); 
 
+  /*
+  var_dump(json_encode(["token"=>$token]));
+  var_dump(wlp_get_jwt());
+  var_dump(_wlp_get_jwt_type());
+   
+  $tokenMethod = _wlp_get_jwt_type(); // double check token method
+  var_dump($tokenMethod);
+  var_dump(wp_get_current_user());
+  die();
+  //*/
 
-// Hook into the 'send_headers' action and set priority to 1 (earliest possible)
-add_action('wlp_admin_header', '_force_remove_x_frame_options_and_fix_cors', 1);
+
+  // Hook into the 'send_headers' action and set priority to 1 (earliest possible)
+  add_action('wlp_admin_header', '_force_remove_x_frame_options_and_fix_cors', 1);
 
   if($callback) {
     $callback();
@@ -70,7 +86,7 @@ add_action('wlp_admin_header', '_force_remove_x_frame_options_and_fix_cors', 1);
   
 
 
-  require_once(__DIR__.'../../wp-admin/index.php' );
+  require_once(__DIR__.'../../wp-admin/admin.php' );
 
 
   

@@ -1,13 +1,17 @@
-### Note: This is only the core (without the core plugins you need)
-This is only the core for forking (like Linux). 
+### Star to be notified when we launch!
+We're currently forking WLP and building the Web3 layer for it to download and manage plugins the decentralized way. ✨
+We launch at Halloween! 🎃
 
-- The FULL "WhiteLabelPress V2 fork" is available at <a href="https://github.com/wlp-builders/whitelabelpress-wlp">wlp-builders/whitelabelpress-wlp</a>.
-- If you want to start your own fork, you can do so very easily. See <a href="https://github.com/wlp-builders/whitelabelpress-wlp">wlp-builders/whitelabelpress-wlp</a> as an example. You essentially just need to create your own core plugins folder.
+Join us at <a href="https://discord.gg/e4NkSj28">Discord</a>
 
----
+## What is WhiteLabelpress?
+WhiteLabelpress intents to decentralize plugin upgrades and more protection against any trademark claims while still **supporting major WordPress / WLP plugins**.
 
-## What is WhiteLabelPress?
-WhiteLabelPress aims to create the best possible plugin ecosystem while providing you with more freedom and protection against trademark claims, all while remaining **mostly WordPress compatible**.
+<a href="#"><img src="./teaser.png"></a>
 
-Site: <a href="https://whitelabelpress.org">https://whitelabelpress.org</a>
+#### Roadmap:
+- Join now with <a href="https://github.com/neil-zip/pluginstxt">plugins.txt, a proposal to decentralize your plugins.</a>
+- Decentralized plugin repo: Easily setup your own independent plugins and themes directory for hosting companies.
+- PLUGIN: Easily switch between plugins and themes directories (replacing hardcoded)
+
 

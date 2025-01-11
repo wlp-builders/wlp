@@ -130,9 +130,6 @@ define( 'SECURE_AUTH_SALT', '$SECURE_AUTH_SALT' );
 define( 'LOGGED_IN_SALT',   '$LOGGED_IN_SALT' );
 define( 'NONCE_SALT',       '$NONCE_SALT' );
 
-// ** Database Table prefix ** //
-\$table_prefix  = '$prefix';
-
 // The File Editor for plugins and themes is disabled (deprecated)
 define( 'DISALLOW_FILE_EDIT', true );
 
@@ -171,8 +168,6 @@ if(\$localCoreDevTestMode) {
     define( 'WP_DEBUG', false );
 }
 
-// ** Sets up WordPress vars and included files ** //
-require_once(ABSPATH . 'wp-settings.php');
 EOL;
 
 // Write the wp-config.php file

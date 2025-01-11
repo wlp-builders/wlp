@@ -597,10 +597,9 @@ function require_wp_db() {
  * @access private
  *
  * @global wpdb   $wpdb         WordPress database abstraction object.
- * @global string $table_prefix The database table prefix.
  */
 function wp_set_wpdb_vars() {
-	global $wpdb, $table_prefix;
+	global $wpdb;
 	if ( ! empty( $wpdb->error ) ) {
 		dead_db();
 	}
@@ -643,15 +642,15 @@ function wp_set_wpdb_vars() {
 		'spam'             => '%d',
 	);
 
-	$prefix = $wpdb->set_prefix( $table_prefix );
+	$prefix = $wpdb->set_prefix( 'wlp_' );
 
 	if ( is_wp_error( $prefix ) ) {
 		wp_load_translations_early();
 		wp_die(
 			sprintf(
-				/* translators: 1: $table_prefix, 2: wp-config.php */
+				/* translators: 1:  2: wp-config.php */
 				__( '<strong>Error:</strong> %1$s in %2$s can only contain numbers, letters, and underscores.' ),
-				'<code>$table_prefix</code>',
+				'<code>wlp_</code>',
 				'<code>wp-config.php</code>'
 			)
 		);
@@ -794,23 +793,7 @@ function wp_start_object_cache() {
  * @access private
  */
 function wp_not_installed() {
-	if ( is_blog_installed() || wp_installing() ) {
-		return;
-	}
-
-	nocache_headers();
-
-	if ( is_multisite() ) {
-		wp_die( __( 'The site you have requested is not installed properly. Please contact the system administrator.' ) );
-	}
-
-	require_once ABSPATH . WPINC . '/kses.php';
-	require_once ABSPATH . WPINC . '/pluggable.php';
-
-	$link = wp_guess_url() . '/wp-admin/install.php';
-
-	wp_redirect( $link );
-	die();
+	return false; // we check this in wp-load.php
 }
 
 /**

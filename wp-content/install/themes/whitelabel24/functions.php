@@ -1,4 +1,12 @@
 <?php
+/*
+Theme Name: Whitelabel 24
+Author: Neil
+Description: A minimalist WLP theme focused on simplicity and whitespace.
+Version: 1.2
+Author URI: https://wlp.builders
+*/
+
 function whitelabel_24_setup() {
     add_theme_support('post-thumbnails');
 }
@@ -135,3 +143,38 @@ function my_custom_footer_widgets() {
     ) );
 }
 add_action( 'widgets_init', 'my_custom_footer_widgets' );
+
+function mytheme_customize_register( $wp_customize ) {
+    // Create a new panel for "Theme Settings".
+    $wp_customize->add_panel( 'mytheme_settings_panel', array(
+        'title'       => __( 'Theme Settings', 'mytheme' ),
+        'description' => __( 'Customize your theme settings, including site identity and appearance.', 'mytheme' ),
+        'priority'    => 10, // Adjust priority to control where the panel appears.
+    ) );
+
+    // Create a section for "Site Identity" under "Theme Settings".
+    $wp_customize->add_section( 'mytheme_site_identity_section', array(
+        'title'    => __( 'Site Identity', 'mytheme' ),
+        'panel'    => 'mytheme_settings_panel', // Assign to "Theme Settings" panel.
+        'priority' => 10,
+    ) );
+
+    // Add the setting for the header logo.
+    $wp_customize->add_setting( 'mytheme_header_logo', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'capability'        => 'edit_theme_options',
+    ) );
+
+    // Add the control for uploading the header logo.
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mytheme_header_logo', array(
+        'label'       => __( 'Header Logo', 'mytheme' ),
+        'section'     => 'mytheme_site_identity_section',
+        'settings'    => 'mytheme_header_logo',
+        'description' => __( 'Upload or select a logo for the header.', 'mytheme' ),
+    ) ) );
+
+    // (Optional) Add other settings or controls here.
+}
+add_action( 'customize_register', 'mytheme_customize_register' );
+

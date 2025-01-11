@@ -1,4 +1,6 @@
-<?php get_header(); ?>
+<?php
+get_header(); 
+?>
 
 <div class="container container--home">
     <!-- Header: business card style -->

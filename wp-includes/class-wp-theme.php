@@ -237,6 +237,25 @@ final class WP_Theme implements ArrayAccess {
 		$this->cache_hash = md5( $this->theme_root . '/' . $this->stylesheet );
 		$theme_file       = $this->stylesheet . '/style.css';
 
+
+
+		// WLP also supports theme file with headers to be PHP file
+	        $files = glob($this->theme_root.'/'.$theme_dir . '/*.php');
+		foreach ($files as $file) {
+			$headers = get_file_data($file, [
+				'Name' => 'Theme Name',
+			]);
+			if(!empty($headers['Name'])) {
+				$theme_file = basename($theme_dir).'/'.basename($file);
+			}
+		}
+
+		/*var_dump('0: '.$theme_dir);
+		var_dump('1: '.$theme_file);
+		var_dump('1.1: '.json_encode($files));
+		var_dump('2: '.$theme_file);
+		die();
+		 */
 		$cache = $this->cache_get( 'theme' );
 
 		if ( is_array( $cache ) ) {

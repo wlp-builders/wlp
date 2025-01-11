@@ -3596,16 +3596,15 @@ function _wp_get_current_user() {
 		var_dump('before user.php jwt_decoded');*/
 		$token = wlp_get_jwt();
 		$tokenMethod = _wlp_get_jwt_type();
+		$jwt_decoded = wlp_jwt_verify($token,WLP_JWT_SECRET);
 		/*
 		var_dump("before jwt token");
 		var_dump($token);
 		var_dump("before jwtTokenMethod");
 		var_dump($tokenMethod);
+		var_dump($jwt_decoded);
 		//*/
 
-		$jwt_decoded = wlp_jwt_verify($token,WLP_JWT_SECRET);
-		//var_dump("before jwt decoded");
-		//var_dump($jwt_decoded);
 		if($jwt_decoded) {
 			$user_id = $jwt_decoded['user_id'];
 		}

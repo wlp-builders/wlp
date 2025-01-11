@@ -1,10 +1,3 @@
-/*
-Theme Name: Whitelabel 24
-Author: Neil
-Description: A minimalist WLP theme focused on simplicity and whitespace.
-Version: 1.1
-*/
-
 /* Reset and global styling */
 * {
     margin: 0;
@@ -37,8 +30,7 @@ body {
    }
 
 /* Header (business card style) */
-header {
-}
+
 .title {
     font-size: 2.5em;
     font-weight: bold;
@@ -64,8 +56,7 @@ header {
 }
 
 /* Latest posts section */
-.latest-posts {
-}
+
 .latest-posts h2 {
     font-size: 1.5em;
     font-weight: bold;
@@ -187,3 +178,10 @@ img {
 ul li {
   color: #fff;
 }
+
+.logo img {
+  height: 42px;
+  width: 150px;
+  object-fit: contain;
+}
+

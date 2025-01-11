@@ -1,4 +1,12 @@
 <?php
+/*
+Theme Name: Whitelabel 24
+Author: Neil
+Description: A minimalist WLP theme focused on simplicity and whitespace.
+Version: 1.2
+Author URI: https://wlp.builders
+*/
+
 function whitelabel_24_setup() {
     add_theme_support('post-thumbnails');
 }

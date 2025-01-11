@@ -37,7 +37,9 @@
         <div class="logo-container">
 <a href="<?php echo esc_url(home_url('/')); ?>" class="logo">
                 <!-- Dynamically get the WordPress site logo -->
-		<img style="height:42px;" src="<?php echo esc_url(get_option('whitelabel_24_options')['avatar']);?>" alt="Site Logo">
+
+		            <img alt="Site Logo" style="height:42px;" src="<?php echo esc_url( get_theme_mod( 'mytheme_header_logo' ) ); ?>" alt="<?php bloginfo( 'name' ); ?>">
+		            
 	    </a>
 
         </div>
