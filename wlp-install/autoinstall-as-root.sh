@@ -13,8 +13,8 @@ if [ -z "$BASH_VERSION" ]; then
 fi
 
 # Check if the correct number of arguments are provided
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <path_to_folder>"
+if [ -z "$1" ]; then
+    echo "Usage: $0 <path_to_folder> [optional:local_domain]"
     exit 1
 fi
 
@@ -49,6 +49,9 @@ DB_NAME=$DATABASE_NAME
 DB_USER=$USERNAME
 DB_PASS=$PASSWORD
 DOMAIN_NAME=$FOLDER_NAME
+if [ -n "$2" ]; then
+	DOMAIN_NAME=$2
+fi
 
 # Construct the URL for the GET request (without query parameters)
 URL="http://$DOMAIN_NAME/wlp-install/index.php"
@@ -62,7 +65,7 @@ sleep 1 # for file to be created
 INSTALL_KEY=$(grep -oP "define\('install_key', '\K[^']+" "$FOLDER_PATH/wlp-install/install-key.php")
 
 # Construct the URL with query parameters for Firefox (including db_name, db_user, db_pass)
-URL_WITH_PARAMS="http://$DOMAIN_NAME/wlp-install?install_key=$INSTALL_KEY&db_name=$DB_NAME&db_user=$DB_USER&db_pass=$DB_PASS"
+URL_WITH_PARAMS="http://$DOMAIN_NAME/wlp-install/index.php?install_key=$INSTALL_KEY&db_name=$DB_NAME&db_user=$DB_USER&db_pass=$DB_PASS"
 
 # Open the URL with query parameters in Firefox
 echo "$URL_WITH_PARAMS"
