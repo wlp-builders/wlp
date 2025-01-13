@@ -24,6 +24,7 @@ if [ -f "$1/wlp-config.php" ]; then
 fi
 
 # Get the full path and base folder name
+FULL_FOLDER_PATH=$(realpath "$1")
 FOLDER_PATH=$(realpath "$1")
 FOLDER_NAME=$(basename "$FOLDER_PATH")
 
@@ -64,9 +65,56 @@ sleep 1 # for file to be created
 # Extract the key from the PHP file (assumed to be between single quotes)
 INSTALL_KEY=$(grep -oP "define\('install_key', '\K[^']+" "$FOLDER_PATH/wlp-install/install-key.php")
 
-# Construct the URL with query parameters for Firefox (including db_name, db_user, db_pass)
-URL_WITH_PARAMS="http://$DOMAIN_NAME/wlp-install/index.php?install_key=$INSTALL_KEY&db_name=$DB_NAME&db_user=$DB_USER&db_pass=$DB_PASS"
 
-# Open the URL with query parameters in Firefox
-echo "$URL_WITH_PARAMS"
+# Construct the URL with query parameters for Firefox (including db_name, db_user, db_pass)
+URL_WITH_PARAMS="/wlp-install/index.php?install_key=$INSTALL_KEY&db_name=$DB_NAME&db_user=$DB_USER&db_pass=$DB_PASS"
+INDEX_CONTENT=`cat $FULL_FOLDER_PATH/index.php`;
+
+echo """<?php // AUTOINSTALL BEGIN
+// Get the full URL
+\$protocol = isset(\$_SERVER['HTTPS']) && \$_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+\$host = \$_SERVER['HTTP_HOST'];
+\$requestUri = \$_SERVER['REQUEST_URI'];
+\$fullUrl = \$protocol . '://' . \$host . \$requestUri;
+
+// Redirect to the new URL with \"/hello\" appended
+\$newUrl = rtrim(\$fullUrl, '/') . '$URL_WITH_PARAMS';
+
+// Check if the script can remove the AUTOINSTALL block
+\$currentFile = __FILE__;
+
+if (is_writable(\$currentFile)) {
+    // Register shutdown function to edit the file after redirection
+    register_shutdown_function(function() use (\$currentFile) {
+        // Get the current content of the file
+        \$fileContent = file_get_contents(\$currentFile);
+
+        // Find the positions of the BEGIN and END markers
+        \$startPos = strpos(\$fileContent, \"<?php // AUTOINSTALL BEGIN\");
+        \$endPos = strpos(\$fileContent, str_replace('ENX','END',\"// AUTOINSTALL ENX ?>\"));
+
+        // If both markers are found, remove everything between them, including the markers themselves
+        if (\$startPos !== false && \$endPos !== false) {
+            // Calculate the length from the start of the BEGIN marker to the END marker (inclusive of the END marker)
+            \$length = \$endPos + strlen(\"// AUTOINSTALL ENX ?>\") - \$startPos;
+            // Remove the content between the markers
+            \$updatedContent = substr_replace(\$fileContent, '', \$startPos, \$length);
+            // Save the updated file content
+            file_put_contents(\$currentFile, \$updatedContent);
+        }
+    });
+
+    // Redirect to the new URL
+    header('Location: ' . \$newUrl);
+    exit;
+} else {
+    // Handle error if file is not writable
+    echo \"This script is not writable and cannot remove the autoinstall block.\";
+    exit;
+}
+// AUTOINSTALL END ?>$INDEX_CONTENT
+""" > $FULL_FOLDER_PATH/index.php
+
+
+echo "Browse to index.php to install"
 
