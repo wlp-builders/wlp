@@ -17,6 +17,21 @@ if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PRO
     $_SERVER['REQUEST_SCHEME'] = 'https'; // Define scheme if your app uses it
 }
 
+$domain = $_SERVER['SERVER_NAME'];
+$secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
+if($secure) {
+    $url = 'https://'.$domain;
+} else {
+    $url = 'http://'.$domain;
+}
+
+/*
+ // for core devs to debug
+ * var_dump($url);
+var_dump($_SERVER);
+die();
+ */
+
 // generate placeholder suggestive names
 // Get the server name
 $serverName = $_SERVER['SERVER_NAME'] ?? 'domain.tld';
@@ -27,48 +42,6 @@ $processedName = str_replace('.', '__', $serverName);
 // Define variables based on the processed server name
 $placeholder_dbName = $processedName . '_db';
 $placeholder_dbUser = $processedName . '_user';
-
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Installer WLP</title>
-</head>
-<body>
-
-
-<style>
-body{
-background:black;
-padding:3rem;
-color:white;
-}
-a,li { color:white}
-</style>
-<link rel="stylesheet" id="style-css" href="/wp-content/themes/whitelabel-24/style.css?ver=cp_e3a3128e" media="all">
-
-<h2>WLP - Easy 3 Step Install</h2>
-<li>1. installer.php opened! (completed)</li>
-<li>2. Create Your Database: <br>Run <b>sudo bash install-1-as-root.sh</b></li>
-<li>3. Connect Your Database:</li>
- 
-
-<form method="post">
-<h5>Database Name</h5>
-    <input type="text" value="<?php echo $placeholder_dbName;?>" placeholder="Db name.." name="db_name" />
-
-    <h5>Database User</h5>
-    <input type="text" value="<?php echo $placeholder_dbUser;?>" placeholder="Db user.." name="db_user" />
-
-<h5>Database Password</h5>
-    <input type="text" placeholder="Db password.." name="db_pass" />
-
-
-    <input type="hidden" name="submit" value="1" />
-    <button type="submit">Create Site</button>
-</form>
-<?php
 //////
 
 if(!isset($_POST['submit']) && !isset($_GET['install_key'])) {
@@ -98,13 +71,6 @@ if(isset($_GET['install_key'])) {
 
 
 $db_host = 'localhost'; // Database host, usually 'localhost'
-$domain = $_SERVER['SERVER_NAME'];
-$secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
-if($secure) {
-    $url = 'https://'.$domain;
-} else {
-    $url = 'http://'.$domain;
-}
 
 $prefix = 'wlp_'; // Table prefix
 
@@ -225,13 +191,13 @@ $esc_username = "'".$conn->real_escape_string($username)."'";
 $esc_password_hash = "'".$conn->real_escape_string($password_hash)."'";
 $esc_domain = "'".$conn->real_escape_string($domain)."'";
 $esc_domain_email = "'noreply@".$conn->real_escape_string($domain)."'";
+$esc_url = "'".$conn->real_escape_string($url)."'";
 $replacements = [
     [
     /// Replace default USER admin:admin
     '(1, \'admin\', \'$2y$12$hKYyZn5WRv0b6s4fXBcr/uJlQxxk9.EMe0iZJz/p8c.SVXxa9keha\', \'admin\', \'admin@wlp.local\', \'http://wlp1.local\', \'2024-12-12 15:00:59\', \'\', 0, \'admin\');',
-    "(1, $esc_username, $esc_password_hash, $esc_username, $esc_domain_email, $esc_domain, '2024-12-12 15:00:59', '', 0, $esc_username);"
+    "(1, $esc_username, $esc_password_hash, $esc_username, $esc_domain_email, $esc_url, '2024-12-12 15:00:59', '', 0, $esc_username);"
     ],
-    ['http://wlp.local',$url],
     ['wlp1.local',$domain],
     ['twentyseventeen','whitelabel24'],
 ];
@@ -278,7 +244,46 @@ setcookie( 'jwt_token', $auth_cookie, $cookie_options );
 header('Location: ../wp-admin');
 exit;
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installer WLP</title>
+</head>
+<body>
 
+
+<style>
+body{
+background:black;
+padding:3rem;
+color:white;
+}
+a,li { color:white}
+</style>
+<link rel="stylesheet" id="style-css" href="/wp-content/themes/whitelabel-24/style.css?ver=cp_e3a3128e" media="all">
+
+<h2>WLP - Easy 3 Step Install</h2>
+<li>1. Installer opened! (completed)</li>
+<li>2. Create your Database <br>or run <b>sudo bash wlp-install/autoinstall-as-root.sh</b></li>
+<li>3. Connect Your Database:</li>
+ 
+
+<form method="post">
+<h5>Database Name</h5>
+    <input type="text" value="<?php echo $placeholder_dbName;?>" placeholder="Db name.." name="db_name" />
+
+    <h5>Database User</h5>
+    <input type="text" value="<?php echo $placeholder_dbUser;?>" placeholder="Db user.." name="db_user" />
+
+<h5>Database Password</h5>
+    <input type="text" placeholder="Db password.." name="db_pass" />
+
+
+    <input type="hidden" name="submit" value="1" />
+    <button type="submit">Create Site</button>
+</form>
 </body>
 </html>
 
