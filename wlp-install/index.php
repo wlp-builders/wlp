@@ -199,6 +199,7 @@ $replacements = [
     "(1, $esc_username, $esc_password_hash, $esc_username, $esc_domain_email, $esc_url, '2024-12-12 15:00:59', '', 0, $esc_username);"
     ],
     ['wlp1.local',$domain],
+    ['http://'.$domain,$url],
     ['twentyseventeen','whitelabel24'],
 ];
 //var_dump($replacements);
