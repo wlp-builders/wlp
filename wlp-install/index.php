@@ -116,7 +116,7 @@ if ( !defined('ABSPATH') )
 // essential setup 
 define('WLP_JWT_SECRET','$JWT_KEY'); // (64 byte key)
 
-\$localCoreDevTestMode = true; // set to false in production, if enabled logs to app.errors.log & app.debug.log + more dev freedom, less security
+\$localCoreDevTestMode = false; // set to false in production, if enabled logs to app.errors.log & app.debug.log + more dev freedom, less security
 if(\$localCoreDevTestMode) {
 
     // WP ideal setup for core devs
