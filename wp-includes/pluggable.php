@@ -947,7 +947,6 @@ if ( ! function_exists( 'wp_set_auth_cookie' ) ) :
 			'domain' => COOKIE_DOMAIN,
 			'secure' => $secure,
 			'httponly' => true,
-			'samesite' => 'None', // in WLP it's None instead of Strict to allow DomApps to redirect
 		);
 
 		// WLP JWT, simplied

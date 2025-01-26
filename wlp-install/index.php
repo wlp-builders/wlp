@@ -235,7 +235,6 @@ $cookie_options = array(
     'domain' => $domain,
     'secure' => $secure,
     'httponly' => true,
-    'samesite' => 'None',
 );
 
 // WLP JWT, simplied
