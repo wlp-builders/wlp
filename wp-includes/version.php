@@ -121,6 +121,7 @@ if ( ! function_exists( 'classicpress_version_short' ) ) {
  */
 if ( ! function_exists( 'classicpress_is_dev_install' ) ) {
 	function classicpress_is_dev_install() {
+		return false;
 		global $cp_version;
 		return substr( $cp_version, -4 ) === '+dev';
 	}

@@ -1,4 +1,8 @@
 <?php
+//require_once __DIR__.'/../wlp-core/main.php';// error handling
+
+//main(function(){
+
 /**
  * WLP Administration Bootstrap
  *
@@ -135,11 +139,6 @@ if ( current_user_can( 'manage_options' ) ) {
 do_action( 'admin_init' );
 
 //*
-	// uncomment for debugging core
-	if(function_exists('log_message')) {
-		log_message('[admin.php get_plugin_page_hook]'.json_encode(["get_plugin_page_hook"=>$get_plugin_page_hook]));
-	}
-	//*/
 
 if ( true || isset( $get_plugin_page_hook ) ) {
 	if ( ! empty( $typenow ) ) {
@@ -391,3 +390,4 @@ if ( ! empty( $_REQUEST['action'] ) ) {
 	 */
 	do_action( "admin_action_{$action}" );
 }
+//});

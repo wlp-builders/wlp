@@ -86,8 +86,12 @@ $LOGGED_IN_SALT=   bin2hex(random_bytes(32));
 $NONCE_SALT=      bin2hex(random_bytes(32));
 
 // Content of the wp-config.php file
+$web4_install_dir = (dirname(__DIR__)).'/wp-content/install';
 $wp_config_content = <<<EOL
 <?php
+// WEB4 Repo support
+define('WEB4_INSTALL_PATH','$web4_install_dir');
+
 // ** MySQL settings ** //
 define( 'DB_NAME', '$db_name' );
 define( 'DB_USER', '$db_user' );
